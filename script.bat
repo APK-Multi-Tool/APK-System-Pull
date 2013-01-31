@@ -32,21 +32,21 @@ PAUSE
 cd "%~dp0"
 set menunr=MULTIMENU
 cls
-ECHO ***************************************************************************************
-ECHO *                                  APK System PULL                                    *
-ECHO ***************************************************************************************
-ECHO * 0. DATA PULL                                                                        *
-ECHO *    Make sure Debugging is enabled on your phone                                     *
-ECHO *    This dumps the ~/Data/ folder extract to %~dp0DataPull\                            *
-ECHO *    This is not for "backups" but for development use.                               *
-ECHO ***************************************************************************************
-ECHO * 1. SYSTEM PULL                                                                      *
-ECHO *    Make sure Debugging is enabled on your phone                                     *
-ECHO *    This dumps the ~/system/ folder extract to %~dp0SystemPull\                      *
-ECHO *    This is not for "backups" but for development use.                               *
-ECHO ***************************************************************************************
-ECHO * 00.  Quit                                                                           *
-ECHO ***************************************************************************************
+ECHO ******************************************************************************************************
+ECHO *                                         APK System PULL                                            *
+ECHO ******************************************************************************************************
+ECHO * 0. DATA PULL (Broken at the Moment)                                                               *
+ECHO *    Make sure Debugging is enabled on your phone                                                    *
+ECHO *    This dumps the ~/Data/ folder extract to %~dp0DataPull\      *
+ECHO *    This is not for "backups" but for development use.                                              *
+ECHO ******************************************************************************************************
+ECHO * 1. SYSTEM PULL                                                                                     *
+ECHO *    Make sure Debugging is enabled on your phone                                                    *
+ECHO *    This dumps the ~/system/ folder extract to %~dp0SystemPull\  *
+ECHO *    This is not for "backups" but for development use.                                              *
+ECHO ******************************************************************************************************
+ECHO * 00.  Quit                                                                                          *
+ECHO ******************************************************************************************************
 SET /P menunr=Please make your decision:
 IF %menunr%==0 (goto datapull)
 IF %menunr%==1 (goto systempull)
@@ -66,40 +66,16 @@ echo Waiting for device
 set count=0
 
 :datapull
-echo.Make sure Debugging is enabled on your phone
-echo.This dumps the ~/DATA/ folder extract to %~dp0DataPull\
-echo.This is not for "backups" but for development use.
-pause
-echo. Waiting for device...
-tools\adb kill-server
-tools\adb wait-for-device
-echo. Device found.
-	
-tools\adb pull data %~dp0DataPull\
-pause
-echo. Data pull complete Killing ADB
-tools\adb kill-server
-echo. ADB KILLED NOW Returning to main menu
-pause
+cls
+cd tools
+Start "Pulling of the Android Data Folder Starting" data
 goto MAINMENU
 
 
 :systempull
-echo.Make sure Debugging is enabled on your phone
-echo.This dumps the ~/system/ folder extract to %~dp0SystemPull\
-echo.This is not for "backups" but for development use.
-pause
-echo. Waiting for device...
-tools\adb kill-server
-tools\adb wait-for-device
-echo. Device found.
-	
-tools\adb pull system %~dp0SystemPull\
-pause
-echo. System pull complete Killing ADB
-tools\adb kill-server
-echo. ADB KILLED NOW Returning to main menu
-pause
+cls
+cd tools
+Start "Pulling of the Android System Folder Starting" system
 goto MAINMENU
 
 :quit
